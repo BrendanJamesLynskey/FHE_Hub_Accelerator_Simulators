@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHE Accelerator Simulators &mdash; FHE Hub</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&family=Geist+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #1c1815; --bg-card: #231e1a; --bg-code: #2b2520;
+            --text-primary: #efe8dc; --text-secondary: #a2978b;
+            --accent: #aabd59; --accent-dim: #aabd5944; --accent-glow: #aabd5933;
+            --border: #3a322b;
+            --font-display: 'Bricolage Grotesque', sans-serif;
+            --font-mono: 'Geist Mono', 'Geist Mono', monospace;
+            --font-body: 'Instrument Sans', sans-serif;
+            --max-width: 960px;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--bg-primary); color: var(--text-primary);
+               font-family: var(--font-body); font-size: 17px; line-height: 1.7;
+               overflow-x: hidden; }
+        .hero { min-height: 60vh; display: flex; flex-direction: column;
+                justify-content: center; align-items: center;
+                padding: 4rem 1.5rem 3rem; text-align: center; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 50%;
+                        transform: translateX(-50%); width: 600px; height: 600px;
+                        background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+                        pointer-events: none; z-index: 0; }
+        .hero > * { position: relative; z-index: 1; }
+        .series-label { font-family: var(--font-mono); font-size: 0.85rem;
+                        color: var(--accent); letter-spacing: 0.15em;
+                        text-transform: uppercase; margin-bottom: 1rem; }
+        .hero h1 { font-family: var(--font-display);
+                   font-size: clamp(2rem, 5vw, 3rem); font-weight: 700;
+                   color: var(--text-primary); line-height: 1.2; margin-bottom: 1rem; }
+        .hero h1 .accent { color: var(--accent); }
+        .hero .subtitle { font-size: 1.1rem; color: var(--text-secondary);
+                          max-width: 720px; margin-bottom: 1.5rem; }
+        .tags { display: flex; flex-wrap: wrap; gap: 0.5rem;
+                justify-content: center; margin-bottom: 1rem; }
+        .tag { font-family: var(--font-mono); font-size: 0.75rem;
+               padding: 0.25rem 0.75rem; border-radius: 999px;
+               border: 1px solid var(--accent); color: var(--accent);
+               background: var(--accent-dim); white-space: nowrap; }
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 2rem 1.5rem; }
+        h2 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+             color: var(--accent); margin: 1rem 0 1.25rem; }
+        .deck-list { display: flex; flex-direction: column; gap: 0.6rem;
+                     list-style: none; padding: 0; counter-reset: deck; }
+        .deck-card { display: flex; gap: 1rem; padding: 1rem 1.25rem;
+                     background: var(--bg-card); border: 1px solid var(--border);
+                     border-left: 3px solid var(--accent); border-radius: 6px;
+                     transition: border-color 0.15s; counter-increment: deck; }
+        .deck-card:hover { border-color: var(--accent); }
+        .deck-card.roadmap { border-left-color: #e3b174; }
+        .deck-card.roadmap:hover { border-color: #e3b174; }
+        .deck-card .num { font-family: var(--font-mono); font-size: 0.8rem;
+                          color: var(--accent); min-width: 2rem;
+                          padding-top: 0.15rem; }
+        .deck-card.roadmap .num { color: #e3b174; }
+        .deck-card .num::before { content: counter(deck, decimal-leading-zero); }
+        .deck-card .body { flex: 1; min-width: 0; }
+        .deck-card .deck-title { font-family: var(--font-display); font-size: 1.05rem;
+                                 font-weight: 600; color: var(--text-primary);
+                                 margin-bottom: 0.2rem; }
+        .deck-card a.deck-title { text-decoration: none; }
+        .deck-card a.deck-title:hover { color: var(--accent); }
+        .deck-card .desc { font-size: 0.92rem; color: var(--text-secondary); }
+        .deck-card .meta { font-family: var(--font-mono); font-size: 0.7rem;
+                           color: var(--text-secondary); margin-top: 0.4rem;
+                           display: flex; gap: 0.6rem; flex-wrap: wrap; }
+        .badge { display: inline-block; font-family: var(--font-mono);
+                 font-size: 0.65rem; padding: 0.1rem 0.5rem; border-radius: 999px;
+                 border: 1px solid var(--border); color: var(--text-secondary); }
+        .badge.live { border-color: var(--accent); color: var(--accent);
+                      background: var(--accent-dim); }
+        .badge.roadmap { border-color: #e3b174; color: #e3b174;
+                         background: rgba(227,177,116,0.08); }
+        .callout { background: var(--bg-card); border-left: 3px solid var(--accent);
+                   border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0; }
+        .callout p { margin-bottom: 0; color: var(--text-secondary); }
+        .callout p strong { color: var(--text-primary); }
+        .footer { text-align: center; padding: 3rem 1.5rem;
+                  color: var(--text-secondary); font-size: 0.85rem;
+                  border-top: 1px solid var(--border); max-width: var(--max-width);
+                  margin: 3rem auto 0; }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 1.8rem; }
+            .deck-card { flex-direction: column; gap: 0.3rem; }
+        }
+            .deck-card.code { border-left-color: #97cdc6; }
+        .deck-card.code .num { color: #97cdc6; }
+        .deck-card.code .num::before { content: none; }
+        .badge.code { border-color: #97cdc6; color: #97cdc6; background: rgba(151,205,198,0.08); }
+    </style>
+
+<style>:root{font-synthesis-weight:none}        .deck-card.code { border-left-color: #97cdc6; }
+        .deck-card.code .num { color: #97cdc6; }
+        .deck-card.code .num::before { content: none; }
+        .badge.code { border-color: #97cdc6; color: #97cdc6; background: rgba(151,205,198,0.08); }
+    </style>
+</head>
+<body>
+<header class="hero">
+    <div class="series-label">FHE Hub &mdash; FHE Accelerator Simulators</div>
+    <h1>FHE Accelerator <span class="accent">Simulators</span></h1>
+    <p class="subtitle">How long does a CKKS bootstrap take on a given accelerator, is the design bound by NTT throughput or by evaluation-key traffic, how much on-chip SRAM is enough, and does an optical NTT engine win once conversion energy and precision are counted? Five decks and a tested SimPy simulator answer these questions, from CKKS as a hardware workload through the anatomy of bootstrapping, the simulator itself (live in the browser) and optical transform engines, to design-space results.</p>
+    <div class="tags"><span class="tag">CKKS bootstrapping</span><span class="tag">NTT</span><span class="tag">Key switching</span><span class="tag">SimPy</span><span class="tag">Memory-bound vs NTT-bound</span><span class="tag">Optical NTT</span><span class="tag">Power &amp; energy</span><span class="tag">5 decks + code</span></div>
+</header>
+<main class="container">
+    <h2>Presentations in This Series</h2>
+    <ol class="deck-list">
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/FHESim_01_FHE_for_Hardware_Engineers/">FHE for Hardware Engineers: CKKS as a Workload &rarr;</a><div class="desc">CKKS seen from the datapath, not the proof: RNS polynomials in Z<sub>q</sub>[X]/(X<sup>N</sup>+1), how big ciphertexts and evaluation keys really are, the five primitive kernels (NTT, modular multiply-add, automorphism, base conversion, rescale), noise and levels, and why key switching dominates. Includes a live parameter calculator.</div><div class="meta"><span class="badge live">live</span><span>CKKS &middot; RNS &middot; NTT &middot; Key switching</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/FHESim_02_Anatomy_of_Bootstrapping/">Anatomy of CKKS Bootstrapping &rarr;</a><div class="desc">ModRaise, CoeffToSlot (a homomorphic DFT evaluated with baby-step giant-step rotations), EvalMod (a polynomial approximation of modular reduction) and SlotToCoeff, with exact operation counts per stage, where the levels go, and the data-movement profile that makes bootstrapping a memory problem.</div><div class="meta"><span class="badge live">live</span><span>ModRaise &middot; CoeffToSlot &middot; EvalMod &middot; SlotToCoeff</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/FHESim_03_Simulating_an_FHE_Accelerator/">Simulating an FHE Accelerator &rarr;</a><div class="desc">The modelled machine (NTT units, modular multiply-add lanes, an automorphism network, a scratchpad, HBM and key streaming), the operation-trace format and where traces come from (a scheme model, HEIR, OpenFHE), the SimPy engine, its metrics and its validation ladder, and the whole simulator running live in the browser.</div><div class="meta"><span class="badge live">live</span><span>SimPy &middot; Trace format &middot; Scratchpad &middot; HBM</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/FHESim_04_Optical_NTT_Engines/">Optical NTT Engines: Precision, Conversion and Power &rarr;</a><div class="desc">Fourier transforms in optics, and what it takes to map an exact modular NTT onto an analogue complex FFT: digit decomposition, small-prime RNS, rounding and error correction, ENOB, DAC/ADC energy from a Walden figure of merit, and laser and thermal-tuning power. The simulator then shows when an optical engine wins and when it loses.</div><div class="meta"><span class="badge live">live</span><span>Fourier optics &middot; Digit planes &middot; Bluestein &middot; ENOB</span></div></div></li>
+<li class="deck-card"><div class="num"></div><div class="body"><a class="deck-title" href="https://brendanjameslynskey.github.io/FHESim_05_Results_and_Design_Space/">Results and the Design Space &rarr;</a><div class="desc">What the simulator says: SRAM size against key traffic, the NTT-bound and memory-bound regimes, power and energy per bootstrap under a TDP, the algorithmic acceleration techniques, a design-space sweep, the model's limitations, a reading list (F1, CraterLake, BTS, ARK, SHARP, GPU work, HEIR, OpenFHE, Lattigo) and practice questions.</div><div class="meta"><span class="badge live">live</span><span>SRAM sizing &middot; Regimes &middot; Energy / bootstrap &middot; Min-KS</span></div></div></li>
+    </ol>
+    <h2>Companion Code</h2>
+    <ol class="deck-list" style="counter-reset: none;">
+<li class="deck-card code"><div class="num">&lt;/&gt;</div><div class="body"><a class="deck-title" href="https://github.com/BrendanJamesLynskey/FHE_Accelerator_Sim">FHE_Accelerator_Sim &rarr;</a><div class="desc">A SimPy discrete-event simulator of an FHE accelerator running CKKS bootstrapping: a scheme model that turns bootstrapping into NTT, base-conversion, multiply-add and automorphism kernels; NTT, MAC, automorphism and optional optical units; a scratchpad whose misses become evaluation-key, plaintext and ciphertext traffic over shared HBM; bound attribution, hot-spots, Perfetto traces; a power model with TDP enforcement and DVFS; an optical precision model with a functional check; OpenFHE calibration; 56 tests; and the JavaScript port used live in deck 03.</div><div class="meta"><span class="badge code">code</span><span>Python &middot; SimPy &middot; pytest &middot; Hypothesis &middot; JavaScript</span></div></div></li>
+    </ol>
+    <div class="callout">
+        <p><strong>How to read this series.</strong> Deck 01 treats CKKS as a workload and deck 02 takes bootstrapping apart; together they are the "what you are simulating". Deck 03 is the simulator and its validation, with the live JavaScript port. Deck 04 asks whether an optical transform engine helps. Deck 05 collects the results, the reading list and practice questions. For the mathematics of FHE, start with the <a href="https://brendanjameslynskey.github.io/Cryptography/08-fully-homomorphic-encryption/">Cryptography FHE deck</a> in the <a href="https://github.com/BrendanJamesLynskey/Mathematics#cryptography">Cryptography section of the Mathematics hub</a>. For simulator methodology in general (discrete-event simulation, metrics, power, acceleration, framework integration), see the sister series <a href="https://brendanjameslynskey.github.io/LLM_Hub_Inference_Simulators/">LLM Inference Simulators</a>.</p>
+    </div>
+</main>
+
+<footer class="footer">
+    <p>Related: <a href="https://github.com/BrendanJamesLynskey/Mathematics#cryptography">Cryptography (Mathematics hub)</a> &middot; <a href="https://brendanjameslynskey.github.io/Cryptography/08-fully-homomorphic-encryption/">Cryptography 08: FHE</a> &middot; <a href="https://github.com/BrendanJamesLynskey/LLM_Hub_Inference_Simulators">LLM Inference Simulators</a> &middot; <a href="https://github.com/BrendanJamesLynskey/Hardware">Hardware hub</a></p>
+</footer>
+
+</body>
+</html>
