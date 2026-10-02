@@ -18,7 +18,7 @@ How long does a CKKS bootstrap take on a given accelerator? Is the design bound 
 
 | Repo | What's inside |
 |------|---------------|
-| [FHE_Accelerator_Sim](https://github.com/BrendanJamesLynskey/FHE_Accelerator_Sim) | A SimPy discrete-event simulator of an FHE accelerator running CKKS bootstrapping: a scheme model that turns bootstrapping into NTT, base-conversion, multiply-add and automorphism kernels; NTT, MAC, automorphism and optional optical units; a scratchpad whose misses become evaluation-key, plaintext and ciphertext traffic over shared HBM; bound attribution, hot-spots, Perfetto traces; a power model with TDP enforcement and DVFS; an optical precision model with a functional check; OpenFHE calibration; 56 tests; and the JavaScript port used live in deck 03. |
+| [FHE_Accelerator_Sim](https://github.com/BrendanJamesLynskey/FHE_Accelerator_Sim) | A SimPy discrete-event simulator of an FHE accelerator running CKKS bootstrapping: a scheme model that turns bootstrapping into NTT, base-conversion, multiply-add and automorphism kernels; NTT, MAC, automorphism and optional optical units; a scratchpad whose misses become evaluation-key, plaintext and ciphertext traffic over shared HBM; bound attribution, hot-spots, Perfetto traces; a power model with a dynamic power manager under a TDP, and DVFS; an optical precision model with a functional check; OpenFHE calibration; 64 tests; and the JavaScript port used live in deck 03. |
 
 ## How to read this series
 
