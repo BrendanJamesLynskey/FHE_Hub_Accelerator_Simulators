@@ -1,3 +1,7 @@
+<!-- portfolio-strip:start (brief 40) -->
+<sub>**Brendan Lynskey** · [Portfolio home](https://brendanjameslynskey.github.io/) · [Interactive sites](https://brendanjameslynskey.github.io/#sites)</sub>
+<!-- portfolio-strip:end -->
+
 # FHE Accelerator Simulators
 
 How long does a CKKS bootstrap take on a given accelerator? Is the design bound by NTT throughput or by evaluation-key traffic? How much on-chip SRAM stops key traffic dominating, and does an optical NTT engine win once conversion energy and precision corrections are counted? Five interactive decks and a tested SimPy simulator work through these questions. They run from CKKS as a hardware workload and the anatomy of bootstrapping, through the simulator itself (**live in the browser**, a bit-exact JavaScript port) and optical transform engines, to design-space results, a reading list and practice questions.
